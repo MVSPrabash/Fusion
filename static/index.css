@@ -1,0 +1,150 @@
+html{
+    scroll-behavior: smooth;
+}
+
+body{
+    color: black;
+}
+
+body::-webkit-scrollbar{
+    display: none;
+}
+
+
+.nav-bar{
+    background-color:rgb(237, 237, 237);
+    padding-top: 20px;
+    padding-bottom: 20px;
+    font-size: 22px;
+}
+
+.logo{
+    margin-left: 70px;
+    margin-right: 60px;
+    font-size: 20;
+    margin-top: 5px;
+    font-family: Georgia;
+}
+
+#logo-color{
+    color: #007b8f;
+}
+
+.spacing-top{
+    margin-top: 10px;
+}
+
+.parts{
+    margin-left: 40px;
+}
+
+
+.btun{
+    margin-right: 20px;
+    background-color:#45e257;
+}
+
+.btun:hover{
+    background-color:#07abb1;
+}
+
+#home{  
+    margin-left: 90px;
+    margin-right: 90px;
+    margin-top: 30px;
+    padding-left: 40px;
+    background-color: aliceblue;
+    border-radius: 20px;
+    padding: 30px;
+}
+
+
+.manage{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+#heading{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-right: 100px;
+    font-size: 40px;
+
+    font-family: 'Impact', Charcoal, sans-serif;
+
+}
+
+#image-1{
+    width: 50%;
+    height: 50%;
+}
+
+#know{
+    font-size: 38px;
+    margin-bottom: 30px;
+    font-family: 'Impact', Charcoal, sans-serif;
+
+}
+
+#image-2{
+    width: 300px;
+    height: 300px;
+}
+
+#text1{
+    margin-top: 50px;
+    margin-left: 150px;
+    font-weight: 500;
+    width: 500px;
+
+}
+
+.cont{
+    margin: 100px;
+    height: 400px;
+    padding: 15px;
+    border: 0px solid rgb(72, 54, 46);
+    border-radius: 20px;
+    background-color: aliceblue;
+}
+
+.text2{
+    margin: 30px;
+    font-size: 48px;
+    font-family: 'Impact', Charcoal, sans-serif;
+
+}
+
+#text3{
+    font-size: 23px;
+    margin: 50px;
+    font-family: 'Montserrat', sans-serif;
+
+}
+
+#text4{
+    font-family: 'Montserrat', sans-serif;
+
+}
+
+.ftr-bg{
+    background-color: rgb(32, 31, 31);
+    width: 100%;
+    height: 320px;
+    color: white;
+    text-align: left;
+    padding-top: 20px;
+    padding-left: 20px;
+    margin: 0px;
+}
+
+#names{
+    margin-top: 50px;
+    font-weight: 400;
+}
+
+/* .larging:hover{
+    transform: scale(1.2);
+} */

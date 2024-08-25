@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modify Asset | Fusion</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='add_asset.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='Fusion.ico')}}">
+</head>
+<body>
+    <div class="container">
+        <div class="login-section">
+            <h1 class="logo">Fusion<span>.</span></h1>
+            {% with messages = get_flashed_messages(with_categories=True) %}
+                {% if messages %}
+                    <div class="flash-messages">
+                        {% for category, message in messages %}
+                            <div class="alert {{ category }}">{{ message }}</div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+            <form method="POST">
+                <div class="input-group">
+                    <label for="asset_name">Asset Name:</label>
+                    <input type="text" id="asset_name" name="asset_name" value="{{ asset[1] }}" required><br><br>
+                </div>
+                <div class="input-group">
+                    <label for="asset_income">Asset Income:</label>
+                    <input type="number" id="asset_income" name="asset_income" step="0.01" value="{{ asset[2] }}" required><br><br>
+
+                    <label for="asset_expenditure">Asset Expenditure:</label>
+                    <input type="number" id="asset_expenditure" name="asset_expenditure" step="0.01" value="{{ asset[3] }}" required><br><br>
+                </div>
+                <input type="hidden" name="asset_id" value="{{ asset[0] }}">
+                <button type="submit" class="button">Modify</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

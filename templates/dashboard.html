@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | Fusion</title>
+
+    <link rel="shortcut icon" href="{{ url_for('static', filename='Fusion.ico')}}">
+
+    <!-- Charts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>  
+
+    <!-- FontAwesome -->
+    <script src="https://kit.fontawesome.com/297ac26106.js" crossorigin="anonymous"></script>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous" />
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
+</head>
+<body>
+    <div class="for-gradence">
+        <nav class="navbar navbar-expand-lg navbar-light nav-bar">
+            <a class="navbar-brand" href="{{ url_for('home') }}">
+                <h1 style="font-weight: bold;" id="logo-color">Fusion<span style='color: #ff8300'>.</span></h1>
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse spacing-top" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link parts larging" href="{{ url_for('about') }}">About <span class="sr-only">(current)</span></a>
+                    </li>
+                </ul>
+            </div>
+            <div class="profile">
+                <a class="btn" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa-solid fa-user values"></i>
+                </a>
+                      
+                <div class="dropdown-menu dropdown" aria-labelledby="dropdownMenuLink">
+                    <a class="dropdown-item" href="{{ url_for('logout') }}">Sign Out</a>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <div class="title">
+        <h1><b style="color: #007b8f;">D</b>ashboard, {{ session['username'] }}'s Financial Assets</h1>
+    </div>
+
+    <div class="main">
+        <div class="asset">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <div class="flash-messages">
+                        {% for category, message in messages %}
+                            <div class="alert {{ category }}">{{ message }}</div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Asset Name</th>
+                        <th>Income</th>
+                        <th>Expenditure</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for asset in assets %}
+                    <tr>
+                        <td>{{ asset[1] }}</td>
+                        <td>{{ asset[2] }}</td>
+                        <td>{{ asset[3] }}</td>
+                        <td>
+                            <a class="btn btn-primary btn-sm" href="{{ url_for('modify_asset', asset_id=asset[0]) }}">Modify</a> |
+                            <form action="{{ url_for('remove_asset', asset_id=asset[0]) }}" method="POST" style="display:inline;">
+                                <button type="submit" class="btn btn-danger btn-sm">Remove</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <a href="{{ url_for('add_asset') }}" class="btn btn-success">Add New Asset</a>
+
+            <!-- Fusion AI assistant -->
+            <form method="POST">
+                <div class="form-group">
+                    <label for="prompt">Ask Fusion Assistant :</label>
+                    <textarea id="prompt" name="prompt" class="form-control" rows="4" required></textarea>
+                </div>
+                <label>
+                    <input type="checkbox" name="include_asset" value="include_asset"> Include Asset Details
+                </label>
+                <button type="submit" value="submit" class="btn btn-primary">Submit</button>
+            </form>
+
+            {% if response %}
+            <br>
+            <div class="response">
+                <div class="response title"><h2>Response:</h2></div>
+                <div class="response answer">
+                    {{ response | safe }}
+                </div>
+            </div>
+            {% endif %}
+        </div>
+        <div class="charts">
+            <div>
+                <h2 class="text-center">Income Pie Chart</h2>
+                <canvas id="incomeChart" width="200" height="200"></canvas>
+            </div>
+
+            <div>
+                <h2 class="text-center">Expenditure Pie Chart</h2>
+                <canvas id="expenditureChart" width="200" height="200"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const ctxIncome = document.getElementById('incomeChart').getContext('2d');
+        const ctxExpenditure = document.getElementById('expenditureChart').getContext('2d');
+
+        // Extract data for Income Pie Chart
+        const incomeLabels = [ {% for asset in assets %}'{{ asset[1] }}'{% if not loop.last %}, {% endif %}{% endfor %} ];
+        const incomeData = [ {% for asset in assets %}{{ asset[2] }}{% if not loop.last %}, {% endif %}{% endfor %} ];
+
+        // Extract data for Expenditure Pie Chart
+        const expenditureLabels = [ {% for asset in assets %}'{{ asset[1] }}'{% if not loop.last %}, {% endif %}{% endfor %} ];
+        const expenditureData = [ {% for asset in assets %}{{ asset[3] }}{% if not loop.last %}, {% endif %}{% endfor %} ];
+
+        // Create Income Pie Chart
+        new Chart(ctxIncome, {
+            type: 'pie',
+            data: {
+                labels: incomeLabels,
+                datasets: [{
+                    label: 'Income',
+                    data: incomeData,
+                    backgroundColor: [
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 99, 132, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)',
+                        'rgba(255, 99, 132, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(tooltipItem) {
+                                return tooltipItem.label + ': ₹' + tooltipItem.raw;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Create Expenditure Pie Chart
+        new Chart(ctxExpenditure, {
+            type: 'pie',
+            data: {
+                labels: expenditureLabels,
+                datasets: [{
+                    label: 'Expenditure',
+                    data: expenditureData,
+                    backgroundColor: [
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                    ],
+                    borderColor: [
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)',
+                        'rgba(255, 99, 132, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(tooltipItem) {
+                                return tooltipItem.label + ': ₹' + tooltipItem.raw;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

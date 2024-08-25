@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='register.css')}}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='Fusion.ico')}}">
+</head>
+<body>
+    <div class="container">
+        <div class="login-section">
+            <h1 class="logo">Fusion<span>.</span></h1>
+            <h2>Register Your Account</h2>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert {{ category }}">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            <form action="{{url_for('register')}}" method="POST">
+                <div class="input-group">
+                    <label for="username">Username <span style="color: orangered;">*</span></label>
+                    <input type="text" class="inputs" name="username" required>
+                </div>
+                <div class="input-group">
+                    <label for="password">Create Password<span style="color: orangered;">*</span></label>
+                    <input type="password" class="inputs" name="password" required>
+                    <span class="password-toggle">&#128065;</span>
+                    <br>
+                    <label for="confirmPassword">Confirm Password<span style="color: orangered;">*</span></label>
+                    <input type="password" class="inputs" name="confirmPassword" required>
+                    <span class="password-toggle">&#128065;</span>
+                </div>
+                <button type="submit" class="button">Register</button>
+            </form>
+        </div>
+        <div class="image-section">
+            <div class="overlay">
+                <h2>Get Started To Your Financial Planing</h2>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript code for password matching -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const form = document.querySelector("form");
+            const password = document.querySelector("input[name='createPassword']");
+            const confirmPassword = document.querySelector("input[name='confirmPassword']");
+            
+            form.addEventListener("submit", function(event) {
+                if (password.value !== confirmPassword.value) {
+                    event.preventDefault(); // Prevent form submission
+                    alert("Passwords do not match!");
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Fusion</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='Fusion.ico')}}">
+</head>
+
+<body>
+    <div class="container">
+        <div class="login-section">
+            <h1 class="logo">Fusion<span>.</span></h1>
+            <h2>Login</h2>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert {{ category }}">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            <form action="{{ url_for('login') }}" method="POST">
+                <div class="input-group">
+                    <label for="username">Username<span style="color: orangered;">*</span></label>
+                    <input type="text" class="inputs" name="username" required>
+                </div>
+                <div class="input-group">
+                    <label for="password">Password<span style="color: orangered;">*</span></label>
+                    <input type="password" class="inputs" name="password" required>
+                    <span class="password-toggle">&#128065;</span>
+                </div>  
+                <button type="submit" class="button">Login</button>
+                <button type="button" class="button" id="register" onclick="location.href='/register'">Register Here</button>
+            </form>
+            <span><a href="#" class="forgot-password" >Forgot password</a></span>
+            <p class="terms">
+                By using our website, you agree to our 
+                <a href="#">Terms of Use</a> and 
+                <a href="#">Privacy Policy</a>.
+            </p>
+        </div>
+        <div class="image-section">
+            <div class="overlay">
+                <h2>Financial planning as it should be</h2>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

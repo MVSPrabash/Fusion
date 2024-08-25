@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fusion</title>
+
+    <link rel="shortcut icon" href="{{ url_for('static', filename='Fusion.ico')}}">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous" />
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+    <!-- FontAwesome -->
+    <script src="https://kit.fontawesome.com/297ac26106.js" crossorigin="anonymous"></script>
+
+    <!-- <script src="https://kit.fontawesome.com/297ac26106.js" crossorigin="anonymous"></script> -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+</head>
+<body>
+
+
+    <div class="for-gradence">
+        <nav class="navbar navbar-expand-lg navbar-light nav-bar">
+            <div class="navbar-brand logo" href="#"><h1 style="font-weight: bold;" id="logo-color">Fusion<span style='color: #ff8300'>.</span></h1></div>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+          
+            <div class="collapse navbar-collapse spacing-top" id="navbarSupportedContent">
+              <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                  <a class="nav-link parts larging" href="{{ url_for('about') }}">About <span class="sr-only">(current)</span></a>
+                </li>
+              </ul> 
+            </div>
+            <form class="form-inline my-2 my-lg-0 spacing-top">
+                <!-- Button should not be type="submit" if not submitting form -->
+                <button class="btn my-2 my-sm-0 btun" type="button" onclick="location.href='/login'">Login</button>
+                <button class="btn my-2 my-sm-0 btun" type="button" onclick="location.href='/register'">Get Started</button>
+            </form>
+        </nav> 
+        <div id="home">
+            <div class="manage">
+                <h2 id="heading" style="font-family: 'Courier New', Courier, monospace; font-size: 80px;">
+                    Manage Your Financials
+                </h2> 
+                <img src="https://media.licdn.com/dms/image/D4D12AQHwVyuLnygfpw/article-cover_image-shrink_720_1280/0/1691920832496?e=2147483647&v=beta&t=hZO6PpX0FmuGR9weKwmELOm8WBS4JKS8s_tpq8DKeYA" id="image-1"> 
+            </div>
+        </div>
+    </div>
+    <div class="manage-div" style="margin: 10px;">
+        <div class="manage">
+            <div>
+                <img src="https://static.vecteezy.com/system/resources/thumbnails/000/143/608/small/linear-icons-with-charts-and-statistics.jpg" id="image-2">
+            </div>
+            <div id="text1">
+                <p id="know" style="font-family: 'Courier New', Courier, monospace;">
+                    Know your expendature and income in organised way
+                </p>
+                <p id="text4" style="font-size: 18px;">
+                    You can able to see your data in organised way, that will help you understand how you spend your income.
+                </p>
+            </div>
+        </div>
+    </div>
+    <div id="working">
+        <div class="cont">
+            <div id="text3">
+                <p>
+                    Fusion is a Personal Financial Planning and Management tool. Fusion gives analysis of your assets.
+                </p>
+                <p>
+                    With Fusion assistant, You can Prompt your question about your financials. Fusion Assistant gives the assistance
+                    required you to maintain you analytics. AI generated content use with caution Result. Built on Gemini API.
+                </p>
+            </div>
+        </div>
+    </div>
+    <footer class="ftr-bg" style="font-family: 'Courier New', Courier, monospace;">
+        <h1 style="text-align: center;">
+            Developers
+        </h1>
+        <div id="names">
+            <div>
+                <h4>
+                    <a href="https://www.instagram.com/akash_yamparala" target="_blank"><i class="fa-brands fa-instagram" style="color: #f443a1;"></i></a>
+                    Akash
+                </h4>
+            </div>
+            <div>
+                <h4>
+                    <a href="https://www.instagram.com/mvs_prabash" target="_blank"><i class="fa-brands fa-instagram" style="color: #f443a1;"></i></a>
+                    Prabash
+                    <a href="https://www.github.com/mvsprabash" target="_blank"><i class="fa-brands fa-github" style="color: #ffffff;"></i></a>
+                </h4>
+            </div>
+            <div class="larging">
+                <h4>
+                    <a href="https://www.instagram.com/sairohith0906" target="_blank"><i class="fa-brands fa-instagram" style="color: #f443a1;"></i></a>
+                    Sai Rohith
+                    <a href="https://www.github.com/sairohith0906" target="_blank"><i class="fa-brands fa-github" style="color: #ffffff;"></i></a>
+                </h4>
+            </div>
+            <div class="larging">
+                <h4>
+                    <a href="https://www.instagram.com/__abhi.21.__" target="_blank"><i class="fa-brands fa-instagram" style="color: #f443a1;"></i></a>
+                    Shashank
+                </h4>
+            </div>
+            <div class="larging"  >
+                <h4>
+                    <a href="https://www.instagram.com/sai_shankar_352005" target="_blank"><i class="fa-brands fa-instagram" style="color: #f443a1;"></i></a>
+                    Sai Shankar
+                </h4>
+            </div>
+        </div>
+    </footer>
+   
+</body>
+</html>

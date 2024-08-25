@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Asset | Fusion</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='add_asset.css')}}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='Fusion.ico')}}">
+</head>
+<body>
+    <div class="container">
+        <div class="login-section">
+            <h1 class="logo">Fusion<span>.</span></h1>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-messages">
+                    {% for category, message in messages %}
+                        <div class="alert {{ category }}">{{ message }}</div>
+                    {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+            <form method="POST">
+                <div class="input-group">
+                    <label for="asset_name">Asset Name<span style="color: orange
+                    red;">*</span></label>
+                    <input type="text" class="inputs" name="asset_name" required>
+                </div>
+                <div class="input-group">
+                    <label for="asset_income">Income<span style="color: orangered;">*</span></label>
+                    <input type="number" class="inputs" name="asset_income" required>
+                    <br>
+                    <label for="asset_expenditure"> Expenditure<span style="color: orangered;">*</span></label>
+                    <input type="number" class="inputs" name="asset_expenditure" required>
+                </div>
+                <button type="submit" class="button">Add</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
