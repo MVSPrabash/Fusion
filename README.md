@@ -9,6 +9,8 @@
 
 &nbsp;The is our first Hackathon project as Freshers. Made just to demonstrate the idea of financial analysis tool.
 
+### Preview
+[Preview](Fusion.webm)
 
 
 ### Security
