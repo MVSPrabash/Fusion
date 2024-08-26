@@ -12,6 +12,11 @@
 ### Preview
 [Preview](Fusion.webm)
 
+### Test
+<video width="640" height="480" controls>
+  <source src="https://github.com/MVSPrabash/Fusion/blob/main/Fusion.webm" type="video/webm">
+  Your browser does not support the video tag.
+</video>
 
 ### Security
 As this application is just for a demo purpose in hackathon we intentionally didn't take any security measures. If you're using our code, keep these in mind.
